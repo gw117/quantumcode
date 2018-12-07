@@ -83,29 +83,6 @@ function OnStart()
 	lay = app.CreateLayout( "Linear", "Horizontal,FillXY,VCenter" );
 	lay.SetBackground( "/res/drawable/pattern_carbon", "repeat" );
  
-	//Create camera view control.
-	cam = app.CreateCameraView( 0.6, 0.8 );	
-	cam.SetOnReady( cam_OnReady );
-	cam.SetMargins( 0, 0, 0.04, 0 );
-	lay.AddChild( cam );  
-	
-	//Create vertical layout on right for other stuff.
-	layRight = app.CreateLayout( "Linear", "Vertical" );
-	lay.AddChild( layRight );
-		
-	//Create record button.
-	btn = app.CreateButton( "Record", 0.2, 0.15, "Alum" );
-	btn.SetMargins( 0, 0.06, 0, 0 );
-	btn.SetOnTouch( btnc_OnTouch );
-	layRight.AddChild( btn ); 
-	
-	//Add main layout to app.
-	app.AddLayout( lay );
-	
-	//Create a folder for recordings.
-	recFolder = "/sdcard/Videos";
-	app.MakeFolder( recFolder );
-
 
 
 	btnL= app.CreateButton( "0", 0.1, 0.3 ); 
@@ -337,31 +314,6 @@ var b =  Math.floor(Math.random() * (2)) + 0;
 }
 
 
-
-//Called when camera is ready.
-function cam_OnReady()
-{
-    //Set focus mode and start preview.
-    cam.SetFocusMode( "Video" );
-    cam.StartPreview();
-}
-
-//Handle record button.
-function btnc_OnTouch()
-{
-	if( cam.IsRecording() ) 
-	{
-	    //Stop recording and update button.
-	    cam.Stop();
-	    btn.SetText( "Record" );
-	}
-	else 
-	{
-	    //Start recording and update button.
-	    cam.Record( recFolder+"/test.mp4" );
-	    btn.SetText( "Stop" );
-	}
-}
 
 
 
