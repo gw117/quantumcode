@@ -146,7 +146,7 @@ Do = 1;
 ack++;
 and = 0;
 cyc++;
-app.ShowPopup(ack + "/" + nul );
+app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
 if (check[cyc] == sw){
 //app.ShowPopup("ACK" );
@@ -169,7 +169,7 @@ swi2++;
 and = 0;
 or = 0;
 cyc++;
-app.ShowPopup(ack + "/" + nul );
+app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
 }
 if (or > corr){
@@ -196,7 +196,7 @@ swi2++;
 code = 0;
 or = 0;
 cyc++;
-app.ShowPopup(ack + "/" + nul );
+app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
 if (check[cyc] == sw){
 //app.ShowPopup("NULL");
@@ -210,7 +210,7 @@ nul++;
 or = 0;
 and = 0;
 cyc++;
-app.ShowPopup(ack + "/" + nul );
+app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
 }
 }
