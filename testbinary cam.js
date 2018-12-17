@@ -22,7 +22,7 @@ var cyc = 0;
 var cycle = 0;
 var numa = "";
 var swif = "";
-var sw =  Math.floor(Math.random() * (2)) + 0;
+var sw = 0
 function OnStart()
 {   
 	app.SetOrientation( "Landscape" );
