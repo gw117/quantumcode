@@ -148,6 +148,7 @@ and = 0;
 cyc++;
 app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
+//most of the time it knows the number before it matches...
 if (check[cyc] == sw){
 //app.ShowPopup("ACK" );
 ack++;
@@ -174,6 +175,9 @@ app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
 if (or > corr){
 var check = numa.split(",");
+
+
+//most of the time it knows the number before it matches...
 if (check[cyc] ==sw){
 //app.ShowPopup("ACK");
 ack++;
