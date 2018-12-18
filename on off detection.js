@@ -152,7 +152,7 @@ cyc++;
 if (check[cyc] == sw){
 //app.ShowPopup("ACK" );
 
-nul++;
+ack++;
 if (sw == 1 && it == 0){
 sw = 0;
 it++;

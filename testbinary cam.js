@@ -35,7 +35,7 @@ for(var a = 0; a < 500;a++){
 var b =  Math.floor(Math.random() * (2)) + 0;
  swif += b + ",";
 }
-for(var a = 0; a < 500;a++){
+for(var a = 0; a < 10;a++){
 var b =  Math.floor(Math.random() * (2)) + 0;
  numa += b + ",";
 }
@@ -150,7 +150,7 @@ app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
 if (check[cyc] == sw){
 //app.ShowPopup("ACK" );
-nul++;
+ack++;
 if (sw == 1 && it == 0){
 sw = 0;
 it++;
