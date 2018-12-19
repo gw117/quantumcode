@@ -15,14 +15,13 @@ var test = 0;
 var nul = 0;
 var ack = 0;
 var and = 0;
-var sw = 0;
 var or = 0;
 var b = 0;
 var cyc = 0;
 var cycle = 0;
 var numa = "";
 var swif = "";
-var sw = 0
+var qu = 0;
 function OnStart()
 {   
 	app.SetOrientation( "Landscape" );
@@ -35,7 +34,7 @@ for(var a = 0; a < 500;a++){
 var b =  Math.floor(Math.random() * (2)) + 0;
  swif += b + ",";
 }
-for(var a = 0; a < 10;a++){
+for(var a = 0; a < 100;a++){
 var b =  Math.floor(Math.random() * (2)) + 0;
  numa += b + ",";
 }
@@ -58,12 +57,12 @@ function OnMotion( data )
 {
 if (Do == 1){
 Do2 = 1;
-if (sw == 1 && it == 0){
-sw = 0;
+if (qu == 1 && it == 0){
+qu = 0;
 it++;
 }
-if (sw == 0 &&  it == 0){
-sw = 1;
+if (qu == 0 &&  it == 0){
+qu = 1;
 it++;
 }
 it = 0;
@@ -84,25 +83,25 @@ b++;
 if (data2 !== undefined){
 	for(var aa = 0; aa < data2.length;aa++){
 if (data[aa] > 10){
-if (data2 > data + 5 || data2 < data + 5 ){
+if (data2[aa] > data[a] || data2[aa] < data[a] ){
 bb++;
 }
 }
 }
 }
-if (sw == 0){
+if (qu == 0){
 if (b > 4 && b < 11 || bb > 4 && bb < 11 ){
 or++;
 }
 if (b > 4 && b < 11 && bb > 4 && bb < 11 ){
 and++;
 if (Do == 1){//switch motor
-if (sw == 1 && it == 0){
-sw = 0;
+if (qu == 1 && it == 0){
+qu = 0;
 it++;
 }
-if (sw == 0 &&  it == 0){
-sw = 1;
+if (qu == 0 &&  it == 0){
+qu = 1;
 it++;
 }
 it = 0;
@@ -110,15 +109,15 @@ it = 0;
 done = 1;
 }
 }
-if (sw == 1){
+if (qu == 1){
 if (b > 4 && b < 11 || bb > 4 && bb < 11 ){
 if (Do2== 1){
-if (sw == 1 && it == 0){
-sw = 0;
+if (qu == 1 && it == 0){
+qu = 0;
 it++;
 }
-if (sw == 0 &&  it == 0){
-sw = 1;
+if (qu == 0 &&  it == 0){
+qu = 1;
 Do2 = 0;
 it++;
 }
@@ -135,11 +134,11 @@ done = 1;
 if (and > corr){
 var check = numa.split(",");
 check = numa.split(",");
-if (check[cyc] == sw){
+if (check[cyc] == qu){
 //app.ShowPopup("NULL" );
 if (swi == longcyc){
 
-sw =  Math.floor(Math.random() * (2)) + 0;
+qu =  Math.floor(Math.random() * (2)) + 0;
 }
 swi++;
 Do = 1;
@@ -149,21 +148,23 @@ cyc++;
 app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
 //most of the time it knows the number before it matches...
-if (check[cyc] == sw){
+
+
+if (check[cyc] == qu){
 //app.ShowPopup("ACK" );
 ack++;
-if (sw == 1 && it == 0){
-sw = 0;
+if (qu == 1 && it == 0){
+qu = 0;
 it++;
 }
-if (sw == 0 &&  it == 0){
-sw = 1;
+if (qu == 0 &&  it == 0){
+qu = 1;
 it++;
 }
 it = 0;
 
 if (swi2 == longcyc2){
-sw =  Math.floor(Math.random() * (2)) + 0;
+qu =  Math.floor(Math.random() * (2)) + 0;
 swi2 = 0;
 }
 swi2++;
@@ -178,21 +179,21 @@ var check = numa.split(",");
 
 
 //most of the time it knows the number before it matches...
-if (check[cyc] ==sw){
+if (check[cyc] ==qu){
 //app.ShowPopup("ACK");
 ack++;
-if (sw == 1 && it == 0){
-sw = 0;
+if (qu == 1 && it == 0){
+qu = 0;
 it++;
 }
-if (sw == 0 &&  it == 0){
-sw = 1;
+if (qu == 0 &&  it == 0){
+qu = 1;
 it++;
 }
 it = 0;
 
 if (swi2 == longcyc2){
-sw =  Math.floor(Math.random() * (2)) + 0;
+qu =  Math.floor(Math.random() * (2)) + 0;
 it = 0;
 swi2 = 0;
 }
@@ -202,10 +203,10 @@ or = 0;
 cyc++;
 app.ShowPopup("ACK:"+ack + " NULL:" + nul );
 }
-if (check[cyc] == sw){
+if (check[cyc] == qu){
 //app.ShowPopup("NULL");
 if (swi == longcyc){
-sw =  Math.floor(Math.random() * (2)) + 0;
+qu =  Math.floor(Math.random() * (2)) + 0;
 swi = 0;
 }
 swi++;
