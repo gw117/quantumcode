@@ -135,7 +135,6 @@ if (and > corr){
 var check = numa.split(",");
 check = numa.split(",");
 if (check[cyc] == qu){
-app.ShowPopup("ACK" );
 if (swi == longcyc){
 qu =  Math.floor(Math.random() * (2)) + 0;
 }
