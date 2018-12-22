@@ -223,7 +223,6 @@ Gdo = 1;
     player.SeekTo( 0 );
 	player.Play();
 
-	setTimeout( "Allow()", 5000 ); 
 }
 }
 }
