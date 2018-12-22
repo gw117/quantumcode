@@ -22,6 +22,9 @@ var cycle = 0;
 var numa = "";
 var swif = "";
 var qu = 0;
+var storyline = "You are in a desert and you have no water, all you see is the sun and the sand.; you approach a cactus and try to drink its juice, you hallucinate.; you are walking looking up at the sun with your hand above your head blocking out the sun.; you see an oasis but find out it is just a mirage; you are parched and decide to find water.; you start kicking the sand.;"
+var story = storyline.split(";");
+var arc = 0;
 function OnStart()
 {   
 	app.SetOrientation( "Portrait" );
@@ -143,7 +146,7 @@ ack++;
 and = 0;
 cyc++;
 Gdo = 1;
-app.ShowPopup("You are in a desert and there is only the sun and alot of sand.");
+app.ShowPopup(story[arc]);
 }
 //most of the time it knows the number before it matches...
 if (check[cyc] == qu){
@@ -167,7 +170,7 @@ and = 0;
 or = 0;
 cyc++;
 Gdo = 1;
-app.ShowPopup("You are in a desert and there is only the sun and alot of sand." );
+app.ShowPopup(story[arc]);
 }
 }
 if (or > corr){
@@ -197,7 +200,7 @@ code = 0;
 or = 0;
 cyc++;
 Gdo = 1;
-app.ShowPopup("You are in a desert and there is only the sun and alot of sand." );
+app.ShowPopup(story[arc]);
 }
 if (check[cyc] != qu){
 if (swi == longcyc){
@@ -218,10 +221,23 @@ for(var ti2 = 0;ti2 < 30000;ti2++){
 
 }
 }
-app.ShowPopup("A Genie appears to assist you." );
-Gdo = 1;
+
+app.ShowPopup("A Genie appears to assist you, he says you have traveled " + (cyc-nul) + " miles.");
+
     player.SeekTo( 0 );
 	player.Play();
+
+Gdo = 1;
+
+arc =  Math.floor(Math.random() * (story.length)) + 0;
+
+
+for(var ti = 0;ti < 30000;ti++){
+
+for(var ti2 = 0;ti2 < 30000;ti2++){
+
+}
+}
 
 }
 }
