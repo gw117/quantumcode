@@ -1,4 +1,4 @@
-//Qbox code - copyright - George Wagenknecht 2018
+//Infinity Desert - copyright - George Wagenknecht 2018 ver 2
 var swi = 0;
 var swi2 = 0;
 var sensitivity = 80;
@@ -142,6 +142,7 @@ Do = 1;
 ack++;
 and = 0;
 cyc++;
+Gdo = 1;
 app.ShowPopup("You are in a desert and there is only the sun and alot of sand.");
 }
 //most of the time it knows the number before it matches...
@@ -165,6 +166,7 @@ swi2++;
 and = 0;
 or = 0;
 cyc++;
+Gdo = 1;
 app.ShowPopup("You are in a desert and there is only the sun and alot of sand." );
 }
 }
@@ -194,6 +196,7 @@ swi2++;
 code = 0;
 or = 0;
 cyc++;
+Gdo = 1;
 app.ShowPopup("You are in a desert and there is only the sun and alot of sand." );
 }
 if (check[cyc] != qu){
@@ -216,9 +219,18 @@ for(var ti2 = 0;ti2 < 30000;ti2++){
 }
 }
 app.ShowPopup("A Genie appears to assist you." );
-
+Gdo = 1;
     player.SeekTo( 0 );
 	player.Play();
+
+	setTimeout( "Allow()", 5000 ); 
 }
+}
+}
+
+function Allow(){
+if (Gdo == 1){
+app.ShowPopup("The genie allows you to leave..." );
+app.Exit( );
 }
 }
