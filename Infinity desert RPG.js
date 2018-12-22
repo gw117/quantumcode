@@ -22,9 +22,25 @@ var cycle = 0;
 var numa = "";
 var swif = "";
 var qu = 0;
+var presence = 0;
+var battlescene = 0;
 var storyline = "You are in a desert and you have no water, all you see is the sun and the sand.; you approach a cactus and try to drink its juice, you hallucinate.; you are walking looking up at the sun with your hand above your head blocking out the sun.; you see an oasis but find out it is just a mirage; you are parched and decide to find water.; you start kicking the sand.;"
 var story = storyline.split(";");
+
+
+var battlescriptweak= "a phantom sways in front of you spookly.; a phantom flows through you leaving a chill down your spine!;There is chanting around you.;"
+var battlescriptw = battlescriptweak.split(";");
+
+var battlescriptdagger= "a phantom sways in front of you spookly.; a phantom flows through you leaving a chill down your spine!;You swipe your dagger at a phantom and it spews red sparkling liquid, the phantoms retreat, atleast for a while.; You see a a darker phantom with pulsing red sparkling veins, you try to swipe at it but it dodges your attack, you throw your dagger at it and and the phantom implodes!"
+var battlescriptd = battlescriptdagger.split(";");
+
+
 var arc = 0;
+var battlearcweak = 0;
+var battlearcdagger = 0;
+var interaction = 0;
+var weapon = 0;
+var battle  =  Math.floor(Math.random() * (40)) + 15;
 function OnStart()
 {   
 	app.SetOrientation( "Portrait" );
@@ -146,7 +162,22 @@ ack++;
 and = 0;
 cyc++;
 Gdo = 1;
+
+if(interaction == 0){
 app.ShowPopup(story[arc]);
+}
+
+
+
+if(interaction == 1 && weapon == 1){
+app.ShowPopup(battlescriptd[battlearcdagger]);
+}
+
+
+if(interaction == 1 && weapon == 0){
+app.ShowPopup(battlescriptw[battlearcweak]);
+}
+
 }
 //most of the time it knows the number before it matches...
 if (check[cyc] == qu){
@@ -170,7 +201,20 @@ and = 0;
 or = 0;
 cyc++;
 Gdo = 1;
+
+if(interaction == 0){
 app.ShowPopup(story[arc]);
+}
+
+
+if(interaction == 1 && weapon == 1){
+app.ShowPopup(battlescriptd[battlearcdagger]);
+}
+
+
+if(interaction == 1 && weapon == 0){
+app.ShowPopup(battlescriptw[battlearcweak]);
+}
 }
 }
 if (or > corr){
@@ -200,7 +244,20 @@ code = 0;
 or = 0;
 cyc++;
 Gdo = 1;
+
+if(interaction == 0){
 app.ShowPopup(story[arc]);
+}
+
+
+if(interaction == 1 && weapon == 1){
+app.ShowPopup(battlescriptd[battlearcdagger]);
+}
+
+
+if(interaction == 1 && weapon == 0){
+app.ShowPopup(battlescriptw[battlearcweak]);
+}
 }
 if (check[cyc] != qu){
 if (swi == longcyc){
@@ -222,15 +279,59 @@ for(var ti2 = 0;ti2 < 30000;ti2++){
 }
 }
 
+if (cyc > battle){
+interaction = 1;
+getack = ack;
+battle = 0;
+}
+if(interaction == 0){
+if (presence != 7){
 app.ShowPopup("A Genie appears to assist you, he says you have traveled " + (cyc-nul) + " miles.");
+presence++;
+}
+if (presence == 7){
 
+app.ShowPopup("A Genie appears to assist you, he gives you an enchanted dagger, he warns of darkness...");
+
+weapon = 1;
+presence++;
+}
     player.SeekTo( 0 );
 	player.Play();
+}
+
+
+if(interaction == 1 && weapon == 1 && battlescene == 0){
+app.ShowPopup("the sun is going down, strange black phantoms start approaching you, they have encompassed you, luckly you have your enchanted dagger, looks like its going to be a rough night" );
+battlescene = 1;
+}
+
+if(interaction == 1 && weapon == 0 && battlescene == 0){
+app.ShowPopup("the sun is going down, strange black phantoms start approaching you, they have encompassed you, looks like its going to be a tough night" );
+battlescene = 1;
+}
+
+if(interaction == 1 && weapon == 0 && battlescene == 1){
+app.ShowPopup("A Genie appears to assist you, he casts a spell on the phantoms causing them to shake vividly.");
+
+
+if(interaction == 1 && weapon == 1 && battlescene == 1){
+app.ShowPopup("A Genie appears to assist you, he casts a spell on the phantoms causing them to shake vividly.");
+
+
+var ex = Math.floor(Math.random() * (15)) + 0;
+if (ex == 7){
+interaction = 0;
+}
+}
 
 Gdo = 1;
 
 arc =  Math.floor(Math.random() * (story.length)) + 0;
 
+battlearcweak =  Math.floor(Math.random() * (battlescriptw.length)) + 0;
+
+battlearcdagger =  Math.floor(Math.random() * (battlescriptd.length)) + 0;
 
 for(var ti = 0;ti < 30000;ti++){
 
