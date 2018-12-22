@@ -231,6 +231,5 @@ Gdo = 1;
 function Allow(){
 if (Gdo == 1){
 app.ShowPopup("The genie allows you to leave..." );
-app.Exit( );
 }
 }
