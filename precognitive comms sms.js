@@ -146,7 +146,7 @@ check = numa.split(",");
 if (check[cyc] == qu){
 if (swi == longcyc){//long cycle quantum correction code, sooner or later you are going to want to alternate the protocol, to keep it fresh. the program probably won't work as well without it
 qu =  Math.floor(Math.random() * (2)) + 0;//quantum correction code... without this the whole thing will probably not work, you could change it to a one or a zero
-//and it will fail or freeze up. you may think how could a statically define variable based on computer systems ever give rise to the kind of power quantum computers do
+//and it will fail or freeze up. you may think how could a statically defined variable based on computer systems ever give rise to the kind of power quantum computers do
 //random numbers are based on time and the exact time the function is called, this is a computer, it runs it's code in a ordered and physics based way, reliably
 //so when you change the time the function is activated you change the output, what about the rest of the program? it's all just mechanical switches...
 //why don't you try adding in a random delay for this random number generator and see if it affects the program.
