@@ -57,8 +57,10 @@ function OnStart()
 	//lay.AddChild( btn2 ); 
 	app.AddLayout( lay );
 for(var a = 0; a < 500;a++){
-//var b =  Math.floor(Math.random() * (1)) + 0;
- numa += "1,0";
+var b =  Math.floor(Math.random() * (1)) + 0;
+ //numa += "0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,1,0,0,0,1,1,0,1,1,1,1,";
+//
+numa += b + ",";
 }
 	setTimeout( "StartDetection()", 1000 ); 
 }
@@ -269,8 +271,8 @@ cyc++;
 if (sta == 0){
 //app.ShowPopup("Nominal" );
 
-//binary += "0";
-//ite++;
+binary += "0";
+ite++;
 if (ite == 8){
 binary += ",";
 ite = 0;
@@ -314,9 +316,9 @@ or = 0;
 cyc++;
 //app.ShowPopup("Nominal" );
 
-//binary += "0";
+binary += "0";
 
-//ite++;
+ite++;
 if (ite == 8){
 binary += ",";
 ite = 0;
@@ -377,7 +379,7 @@ for(var aa = 0;aa < 4;aa++){
 	for(var aaaaa = 0;aaaaa < 4;aaaaa++){
 	if (aa*aaa*aaaa*aaaaa == Math.floor(Math.random() * (1024)) + 0){
 integer = aa*aaa*aaaa*aaaaa;
-integer = 9;
+integer = 0;
 	}
 }
 }
