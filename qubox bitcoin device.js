@@ -10,7 +10,7 @@ var longcyc2 = 3;//+1 or 2
 var minPeriod = 15;
 var corr = 2;
 var x = 0.2;
-var y = 0.1;
+var y = 0.3;
 var Do = 0;
 var Do2 = 0;
 var it = 0;
@@ -28,7 +28,7 @@ var qu = 0;
 var oddshigh = false;
 function OnStart()
 {   
-//	app.SetOrientation( "Landscape" );
+app.SetOrientation( "Landscape" );
 	lay = app.CreateLayout( "Linear", "horizontal,FillXY" );
 	lay = app.CreateLayout( "Frame" );	
 	cam = app.CreateCameraView( x, y);	
