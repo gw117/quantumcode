@@ -10,7 +10,7 @@ var longcyc2 = 3;//+1 or 2
 var minPeriod = 15;
 var corr = 2;
 var x = 0.2;
-var y = 0.3;
+var y = 0.1;
 var Do = 0;
 var Do2 = 0;
 var it = 0;
@@ -35,7 +35,7 @@ function OnStart()
 	lay.AddChild( cam );  
 	
     chk = app.CreateCheckBox( "Check Box" );
-    chk.SetMargins( 0, 0.02, 0, 0 );
+    chk.SetMargins( 0.5, 0.02, 0, 0 );
     chk.SetOnTouch( chk_OnTouch );
     lay.AddChild( chk );
 
@@ -211,7 +211,7 @@ nul++;
 or = 0;
 and = 0;
 cyc++;
-app.ShowPopup("Paradox interference Detected" );
+app.ShowPopup("Paradox interference detected" );
 
 if(oddshigh = false){
 var command = "a=PlaceBet&s=2a57e75bc9c04c2a90b8f4c986fa8e9a&PayIn="+ PayIn + "&Low=0&High=666666&ClientSeed=-5309338182208444527&currency=doge&ProtocolVersion=2"
