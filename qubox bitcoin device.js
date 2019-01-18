@@ -211,7 +211,7 @@ nul++;
 or = 0;
 and = 0;
 cyc++;
-app.ShowPopup("Shutdown Detected" );
+app.ShowPopup("Paradox interference Detected" );
 
 if(oddshigh = false){
 var command = "a=PlaceBet&s=2a57e75bc9c04c2a90b8f4c986fa8e9a&PayIn="+ PayIn + "&Low=0&High=666666&ClientSeed=-5309338182208444527&currency=doge&ProtocolVersion=2"
