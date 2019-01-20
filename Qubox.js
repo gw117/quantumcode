@@ -11,8 +11,8 @@ var swi2 = 0;
 var sensitivity = 80;
 var longcyc = 2;
 var longcyc2 = 3;//+1 or 2
-var minPeriod = 15;
-var corr = 2; //counting is better when done in batches(because of computer speed constraints and timing issues)
+var minPeriod = 5;
+var corr = 0; //counting is better when done in batches(because of computer speed constraints and timing issues)
 var x = 0.2;
 var y = 0.3;
 var Do = 0;
@@ -227,11 +227,12 @@ ghostprotocol++;//This iterates multiverses supposedly...
 }
 }
 function btn_OnTouch(){
-	sms.Send( "0481726300", "1"); //represents 1 bit we send it through the paradox & controlled multiverse to receive information.
+	
+    var now = new Date().getTime();
+    app.SetAlarm( "Set", 1234, OnAlarm, now + 3000 );
 }
-function sms_OnMessage( number, msg )
+function OnAlarm( id )
 {
-if(msg== "1"){
 //do calculation, efficiency does not matter so we can do it again and again.
 var integer = 24;
 //if decimal higher or lower send disruption
@@ -244,4 +245,5 @@ low += range;
 high -= range;
 }
 }
-}
+
+//there should be an oscillation difference, effects should be instant when the ghost protocol is performed, as opposed to slow signal spikes...
