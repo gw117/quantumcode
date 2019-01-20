@@ -40,12 +40,11 @@ function OnStart()
 	lay = app.CreateLayout( "Frame" );	
 	cam = app.CreateCameraView( x, y);	
 	lay.AddChild( cam );  
-
 	btn = app.CreateButton( "Send", 0.4, 0.1 );
 	btn.SetOnTouch(  btn_OnTouch);
-	
     btn.SetMargins( 0.5, 0.02, 0, 0 );
   lay.AddChild( btn);
+  
 for(var a = 0; a < 100;a++){
 var b =  Math.floor(Math.random() * (2)) + 0;
  numa += b + ",";//initialise test variable set
