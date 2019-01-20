@@ -11,7 +11,7 @@ var sensitivity = 70;
 var longcyc = 2;
 var longcyc2 = 3;//+1 or 2
 var minPeriod = 5;
-var corr = 0; //counting is better when done in batches(because of computer speed constraints and timing issues)
+var corr = 0; //batch count
 var x = 0.2;
 var y = 0.3;
 var Do = 0;
@@ -26,18 +26,14 @@ var b = 0;
 var cyc = 0;
 var cycle = 0;
 var numa = "";
-var swif = "";
 var qu = 0;
-var range = 10;
-var low = 0;
-var high = 200;
+var range = 1000;
 var ghostprotocol = 0;
 var prime = 0;
 var output = "";
 var ghostprotocollast = 0;
 var GhostIterate =0;
-var randnum  =  Math.floor(Math.random() * (200)) + 0;
-randnum = 70;
+var testchecknum = 18537;
 function OnStart()
 {   
 	app.SetOrientation( "Landscape" );
@@ -48,11 +44,9 @@ function OnStart()
 	btn = app.CreateButton( "Send", 0.4, 0.1 );
 	btn.SetOnTouch(  btn_OnTouch);
   btn.SetMargins( 0.5, 0.02, 0, 0 );
-  lay.AddChild( btn);
-  
+  //lay.AddChild( btn);
 	edt = app.CreateTextEdit( "", 0.96, 0.4 ); 
 	edt.SetBackColor( "#333333" );
-	
 	edt.SetTextSize(10);
 	edt.SetMargins( 0.0, 0.5, 0, 0 );
 	lay.AddChild( edt ); 
@@ -172,7 +166,6 @@ Do = 1;
 ack++;
 and = 0;
 cyc++;
-app.ShowPopup("Secure");//when the quantum system is settled it will display nominal.
 prime = 0;
 }
 //most of the time it knows the number before it matches...
@@ -195,7 +188,6 @@ swi2++;
 and = 0;
 or = 0;
 cyc++;
-app.ShowPopup("Secure" );
 prime = 0;
 }
 }
@@ -222,7 +214,6 @@ swi2++;
 code = 0;
 or = 0;
 cyc++;
-app.ShowPopup("Secure" );
 prime = 0;
 }
 if (check[cyc] != qu){//this section checks for disruptions in quantum flux, it is the time the code is most sure of inference/disruption(unless you turn the device off),why? because we cause the disruption at a future time by adding 9s to 'numa',you may wonder many things, you may aswell throw computer logic out the window because this is essentially completely made up code from here on
@@ -243,72 +234,39 @@ if (GhostIterate == 0){
 ghostprotocollast = ghostprotocol;
 GhostIterate++;
 }
-if(ghostprotocol*range != ghostprotocollast+10)
+if(ghostprotocol*range != ghostprotocollast+range)
 {
 ghostprotocollast = ghostprotocol*range;
-app.ShowPopup("~" + ghostprotocol*range + " ==" + randnum);
-
-output += "~" + ghostprotocol*range + " ==" + randnum + "\n";
+output += "~" + ghostprotocol*range + " ==" + testchecknum + "\n";
 edt.SetText(output);
 }
-
-
-if(ghostprotocol*range==ghostprotocollast+10)
+if(ghostprotocol*range==ghostprotocollast+range)
 {
 ghostprotocollast = ghostprotocol;
 GhostIterate = 0;
 output += "******\n";
 edt.SetText(output);
 }
-//reset
-/*
- Do = 0;
- Do2 = 0;
- it = 0;
- test = 0;
- nul = 0;
- ack = 0;
- and = 0;
- or = 0;
- b = 0;
- cyc = 0;
- cycle = 0;
- qu = 0;
- range = 10;
- low = 0;
- high = 200;
- ghostprotocol = 0;
- prime = 0;
-*/
-
-
-
-
 }
 ghostprotocol++;//This iterates multiverses supposedly...
 }
 }
 }
 function btn_OnTouch(){
-	
-    var now = new Date().getTime();
-    app.SetAlarm( "Set", 1234, OnAlarm, now + 10 );
+var now = new Date().getTime();
+app.SetAlarm( "Set", 1234, OnAlarm, now + 10 );
 }
 function OnAlarm( id )
 {
 //do calculation, efficiency does not matter so we can do it again and again.
-var integer = randnum;// 18537;
+var integer = 18537;//same as testchecknum to test...
 //if decimal higher or lower send disruption
 if (integer <= ghostprotocol*range ){
 for(var a = 0; a < 500;a++){
 var b = 9;
- numa += b + ",";//quantum disruption
-}
-low += range;
-//high -= range;
+numa += b + ",";//quantum disruption
 }
 }
-
-//there should be an oscillation difference, effects should be instant when the ghost protocol is performed, as opposed to slow signal spikes...
+}
 //convert ascii data into decimal then use the ghost protocol to check the number, then convert back to ascii.
 //needs to be protected from poweroff to minimise noise
