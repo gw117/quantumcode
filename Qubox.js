@@ -42,9 +42,9 @@ function OnStart()
 	lay.AddChild( cam );  
 	btn = app.CreateButton( "Send", 0.4, 0.1 );
 	btn.SetOnTouch(  btn_OnTouch);
-    btn.SetMargins( 0.5, 0.02, 0, 0 );
+  btn.SetMargins( 0.5, 0.02, 0, 0 );
   lay.AddChild( btn);
-  
+ 
 for(var a = 0; a < 100;a++){
 var b =  Math.floor(Math.random() * (2)) + 0;
  numa += b + ",";//initialise test variable set
@@ -66,7 +66,6 @@ function StartDetection()
 var data2;
 function OnMotion( data )//stream camera data
 {
-
 //various switching
 if (Do == 1){
 Do2 = 1;
@@ -175,7 +174,6 @@ qu = 1;
 it++;
 }
 it = 0;
-
 if (swi2 == longcyc2){//another long cycle quantum correction code, integrated with the quantum protocol
 qu =  Math.floor(Math.random() * (2)) + 0;
 swi2 = 0;
@@ -189,8 +187,6 @@ app.ShowPopup("Nominal" );
 }
 if (or > corr){
 var check = numa.split(",");
-
-
 //most of the time it knows the number before it matches...
 if (check[cyc] == qu){
 ack++;
@@ -203,7 +199,6 @@ qu = 1;
 it++;
 }
 it = 0;
-
 if (swi2 == longcyc2){
 qu =  Math.floor(Math.random() * (2)) + 0;
 it = 0;
@@ -233,8 +228,7 @@ ghostprotocol++;//This iterates multiverses supposedly...
 }
 function btn_OnTouch(){
 	sms.Send( "0481726300", "1"); //represents 1 bit we send it through the paradox & controlled multiverse to receive information.
-	}
-	
+}
 function sms_OnMessage( number, msg )
 {
 if(msg== "1"){
