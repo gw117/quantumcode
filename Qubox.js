@@ -233,16 +233,15 @@ function sms_OnMessage( number, msg )
 {
 if(msg== "1"){
 //do calculation, efficiency does not matter so we can do it again and again.
-interger = 24;
+var integer = 24;
 //if decimal higher or lower send disruption
-range = range*ghostprotocol;
-if (range >= low && range <= high){
+if (integer >= low && integer <= high ){
 for(var a = 0; a < 500;a++){
 var b = 9;
  numa += b + ",";//quantum disruption
 }
 low += range;
-//high -= range;
+high -= range;
 }
 }
 }
