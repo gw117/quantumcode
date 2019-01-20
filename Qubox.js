@@ -7,7 +7,7 @@ You should have received a copy of the GNU General Public License along with thi
 */
 var swi = 0;
 var swi2 = 0;
-var sensitivity = 80;
+var sensitivity = 70;
 var longcyc = 2;
 var longcyc2 = 3;//+1 or 2
 var minPeriod = 5;
@@ -30,8 +30,11 @@ var swif = "";
 var qu = 0;
 var range = 10;
 var low = 0;
-var high = 1000
+var high = 100;
 var ghostprotocol = 0;
+var prime = 0;
+var output = "";
+var randnum  =  Math.floor(Math.random() * (100)) + 50;
 function OnStart()
 {   
 	app.SetOrientation( "Landscape" );
@@ -43,6 +46,13 @@ function OnStart()
 	btn.SetOnTouch(  btn_OnTouch);
   btn.SetMargins( 0.5, 0.02, 0, 0 );
   lay.AddChild( btn);
+  
+	edt = app.CreateTextEdit( "", 0.96, 0.4 ); 
+	edt.SetBackColor( "#333333" );
+	
+	edt.SetTextSize(10);
+	edt.SetMargins( 0.0, 0.5, 0, 0 );
+	lay.AddChild( edt ); 
  
 for(var a = 0; a < 100;a++){
 var b =  Math.floor(Math.random() * (2)) + 0;
@@ -159,7 +169,8 @@ Do = 1;
 ack++;
 and = 0;
 cyc++;
-app.ShowPopup("Nominal");//when the quantum system is settled it will display nominal.
+app.ShowPopup("Secure");//when the quantum system is settled it will display nominal.
+prime = 0;
 }
 //most of the time it knows the number before it matches...
 if (check[cyc] == qu){
@@ -181,7 +192,8 @@ swi2++;
 and = 0;
 or = 0;
 cyc++;
-app.ShowPopup("Nominal" );
+app.ShowPopup("Secure" );
+prime = 0;
 }
 }
 if (or > corr){
@@ -207,7 +219,8 @@ swi2++;
 code = 0;
 or = 0;
 cyc++;
-app.ShowPopup("Nominal" );
+app.ShowPopup("Secure" );
+prime = 0;
 }
 if (check[cyc] != qu){//this section checks for disruptions in quantum flux, it is the time the code is most sure of inference/disruption(unless you turn the device off),why? because we cause the disruption at a future time by adding 9s to 'numa',you may wonder many things, you may aswell throw computer logic out the window because this is essentially completely made up code from here on
 if (swi == longcyc){
@@ -220,7 +233,37 @@ nul++;
 or = 0;
 and = 0;
 cyc++;
-app.ShowPopup("Ghost protocol++" );
+app.ShowPopup("Ghost protocol++ ->" + ghostprotocol );
+prime++;
+if (prime > 1){
+ghostprotocol = ghostprotocol;
+app.ShowPopup("~" + ghostprotocol*range + " ==" + randnum);
+output += "~" + ghostprotocol*range + " ==" + randnum + "\n";
+edt.SetText(output);
+//reset
+ Do = 0;
+ Do2 = 0;
+ it = 0;
+ test = 0;
+ nul = 0;
+ ack = 0;
+ and = 0;
+ or = 0;
+ b = 0;
+ cyc = 0;
+ cycle = 0;
+ qu = 0;
+ range = 10;
+ low = 0;
+ high = 100;
+ ghostprotocol = 0;
+ prime = 0;
+
+
+
+
+
+}
 ghostprotocol++;//This iterates multiverses supposedly...
 }
 }
@@ -228,12 +271,12 @@ ghostprotocol++;//This iterates multiverses supposedly...
 function btn_OnTouch(){
 	
     var now = new Date().getTime();
-    app.SetAlarm( "Set", 1234, OnAlarm, now + 3000 );
+    app.SetAlarm( "Set", 1234, OnAlarm, now + 10 );
 }
 function OnAlarm( id )
 {
 //do calculation, efficiency does not matter so we can do it again and again.
-var integer = 100;
+var integer = randnum;// 18537;
 //if decimal higher or lower send disruption
 if (integer >= low && integer <= high ){
 for(var a = 0; a < 500;a++){
@@ -241,7 +284,7 @@ var b = 9;
  numa += b + ",";//quantum disruption
 }
 low += range;
-high -= range;
+//high -= range;
 }
 }
 
