@@ -31,7 +31,7 @@ var swif = "";
 var qu = 0;
 var range = 10;
 var low = 0;
-var high = 100
+var high = 1000
 var ghostprotocol = 0;
 function OnStart()
 {   
@@ -234,7 +234,7 @@ function btn_OnTouch(){
 function OnAlarm( id )
 {
 //do calculation, efficiency does not matter so we can do it again and again.
-var integer = 24;
+var integer = 100;
 //if decimal higher or lower send disruption
 if (integer >= low && integer <= high ){
 for(var a = 0; a < 500;a++){
@@ -247,3 +247,4 @@ high -= range;
 }
 
 //there should be an oscillation difference, effects should be instant when the ghost protocol is performed, as opposed to slow signal spikes...
+//convert ascii data into decimal then use the ghost protocol to check the number, then convert back to ascii.
