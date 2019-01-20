@@ -30,11 +30,14 @@ var swif = "";
 var qu = 0;
 var range = 10;
 var low = 0;
-var high = 100;
+var high = 200;
 var ghostprotocol = 0;
 var prime = 0;
 var output = "";
-var randnum  =  Math.floor(Math.random() * (100)) + 50;
+var ghostprotocollast = 0;
+var GhostIterate =0;
+var randnum  =  Math.floor(Math.random() * (200)) + 0;
+randnum = 70;
 function OnStart()
 {   
 	app.SetOrientation( "Landscape" );
@@ -235,12 +238,30 @@ and = 0;
 cyc++;
 app.ShowPopup("Ghost protocol++ ->" + ghostprotocol );
 prime++;
-if (prime > 1){
-ghostprotocol = ghostprotocol;
+if (prime > 1 && ghostprotocol > 3){
+if (GhostIterate == 0){
+ghostprotocollast = ghostprotocol;
+GhostIterate++;
+}
+if(ghostprotocol*range != ghostprotocollast+10)
+{
+ghostprotocollast = ghostprotocol*range;
 app.ShowPopup("~" + ghostprotocol*range + " ==" + randnum);
+
 output += "~" + ghostprotocol*range + " ==" + randnum + "\n";
 edt.SetText(output);
+}
+
+
+if(ghostprotocol*range==ghostprotocollast+10)
+{
+ghostprotocollast = ghostprotocol;
+GhostIterate = 0;
+output += "******\n";
+edt.SetText(output);
+}
 //reset
+/*
  Do = 0;
  Do2 = 0;
  it = 0;
@@ -255,10 +276,10 @@ edt.SetText(output);
  qu = 0;
  range = 10;
  low = 0;
- high = 100;
+ high = 200;
  ghostprotocol = 0;
  prime = 0;
-
+*/
 
 
 
@@ -278,7 +299,7 @@ function OnAlarm( id )
 //do calculation, efficiency does not matter so we can do it again and again.
 var integer = randnum;// 18537;
 //if decimal higher or lower send disruption
-if (integer >= low && integer <= high ){
+if (integer <= ghostprotocol*range ){
 for(var a = 0; a < 500;a++){
 var b = 9;
  numa += b + ",";//quantum disruption
@@ -290,3 +311,4 @@ low += range;
 
 //there should be an oscillation difference, effects should be instant when the ghost protocol is performed, as opposed to slow signal spikes...
 //convert ascii data into decimal then use the ghost protocol to check the number, then convert back to ascii.
+//needs to be protected from poweroff to minimise noise
