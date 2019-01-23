@@ -28,14 +28,17 @@ var cycle = 0;
 var numa = "";
 var qu = 0;
 var range = 100000000000000000000000000000000000;
+range = 100000000;
 var ghostprotocol = 0;
 var prime = 0;
 var output = "";
 var outputq = "";
 var ghostprotocollast = 0;
 var GhostIterate = 0;
-var testchecknum = 573210623968572906089346317034273080; //341881320659934023674980; //18537;
+var testchecknum = 1633771873//573210623968572906089346317034273080; //341881320659934023674980; //18537;
+var qdata = 0;
 
+//to perform series computation to narrow approximation after each computation decrease range and add into qdata
 
 var stringrand  = "";
 var r = 0;
@@ -81,17 +84,17 @@ function OnStart() {
     edtin.SetTextSize(8);
     edtin.SetMargins(0.0, 0.5, 0, 0);
     lay.AddChild(edtin);
-    edtq = app.CreateTextEdit("", 0.6, 0.4);
-    edtq.SetTextSize(8);
+    edtq = app.CreateTextEdit("", 0.4, 1);
+    edtq.SetTextSize(4);
   //  edtq.SetMargins(0.0, 0.2, 0, 0);
     lay.AddChild(edtq);
-    edt = app.CreateTextEdit("", 0.6, 0.2);
+    edt = app.CreateTextEdit("", 0.3, 0.2);
     edt.SetTextSize(8);
-    edt.SetMargins(0.0, 0.5, 0, 0);
+    edt.SetMargins(0.5, 0.5, 0, 0);
     lay.AddChild(edt);
-    edt2 = app.CreateTextEdit("", 0.6, 0.2);
+    edt2 = app.CreateTextEdit("", 0.3, 0.2);
     edt2.SetTextSize(8);
-    edt2.SetMargins(0.0, 0.8, 0, 0);
+    edt2.SetMargins(0.5, 0.8, 0, 0);
     lay.AddChild(edt2);
     crypt = app.CreateCrypt();
     for (var a = 0; a < 100; a++) {
@@ -278,16 +281,30 @@ function OnMotion(data) //stream camera data
                     ghostprotocollast = ghostprotocol;
                     GhostIterate++;
                 }
-                if (ghostprotocol * range != ghostprotocollast + range) {
-                    ghostprotocollast = ghostprotocol * range;
-                    outputq += "~" + ghostprotocol * range + " == ~" + testchecknum + "\n";
+                if ((ghostprotocol * range) + qdata != (ghostprotocollast + range) + qdata) {
+                    ghostprotocollast = (ghostprotocol * range) + qdata;
+                    outputq += "~" + ((ghostprotocol * range)  + qdata) +  " == ~" + testchecknum + "\n";
                     edtq.SetText(outputq);
+                    //app.ShowPopup( qdata );
+                    	app.WriteFile( "/sdcard/testfileq.txt", outputq);
+                    	
                 }
-                if (ghostprotocol * range == ghostprotocollast + range) {
+                if ((ghostprotocol * range) + qdata == (ghostprotocollast + range) + qdata) {
                     ghostprotocollast = ghostprotocol;
                     GhostIterate = 0;
                     outputq += "******\n";
+                    var resstring = (ghostprotocol*range).toString()
+                    
+                    for (var numl = 0; numl < range.length-(ghostprotocol*range);numl++)                 
+                    {
+                    restring += "0";
+                    }
+               //qdata += parseInt(resstring);//no way i am sorting out qdata notation fixing, because it doesn't output the correct information all the time in reliable terms,its more like a probabilistic nightmare to calculate with reducing notations and i think those possibilities interferes with the overall results, who knows.
+                 //ghostprotocol = 0; //i have it setup to detect just one segmentation, it needs to detect many.
+                     //range = (range/10);
                     edtq.SetText(outputq);
+                    
+	app.WriteFile( "/sdcard/testfileq.txt", outputq);
                 }
             }
             ghostprotocol++; //This iterates multiverses supposedly...
@@ -630,7 +647,7 @@ app.SetClipboardText(input );
     app.SetClipboardText(str);
     app.ShowPopup("Copied integer & range");
     //if decimal higher or lower send disruption
-    if (integer <= ghostprotocol * range) {
+    if (integer <= (ghostprotocol * range) + qdata) {
         for (var a = 0; a < 500; a++) {
             var b = 9;
             numa += b + ","; //quantum disruption
