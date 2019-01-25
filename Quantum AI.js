@@ -12,8 +12,8 @@ var longcyc = 2;
 var longcyc2 = 3; //+1 or 2
 var minPeriod = 1;
 var corr = 0; //batch count
-var x = 0.8;
-var y = 1;
+var x = 0.1;
+var y = 0.2;
 var Do = 0;
 var Do2 = 0;
 var it = 0;
@@ -35,7 +35,7 @@ var output = "";
 var outputq = "";
 var ghostprotocollast = 0;
 var GhostIterate = 0;
-var testchecknum = 1633771873//573210623968572906089346317034273080; //341881320659934023674980; //18537;
+var testchecknum = 0//573210623968572906089346317034273080; //341881320659934023674980; //18537;
 var qdata = 0;
 
 //to perform series computation to narrow approximation after each computation decrease range and add into qdata
@@ -48,8 +48,14 @@ for(var n = 0;n<2000;n++){
 c = Math.floor(Math.random() * (sentence.length)) + 0;
 stringrand += c + ",";
 }
+//for checking quantum results
+stringrand = "4801,2527,3452,1197,2767,1762,3306,5785,3211,1291,5235,1814,2071,5027,1063,3438,5333,395,5151,3662,865,398,1689,275,5738,4562,3483,2255,618,2605,2650,2114,3094,363,822,2444,2090,563,3788,2198,5726,248,3625,3307,1329,2315,4803,610,3274,3437,3515,4690,4999,834,5219,4423,1463,1574,419,1072,167,4695,1242,2642,122,4269,4743,635,3594,5141,1766,2347,4881,5985,3466,3068,753,254,2793,3809,3494,2347,519,5457,560,3450"
 
-
+//____________________
+var txt = app.ReadFile("/sdcard/philosophy.txt");
+        sentence = txt.split(".");
+         range = sentence.length/100
+         range = Math.round(range);
 	app.WriteFile( "/sdcard/testfile.txt", stringrand );
 var nn = 0;
 
@@ -68,7 +74,7 @@ var pos = 0;
 var output2 = "";
 var c = 0;
 var function1 = "";
-
+var testout = "sophisticated";
 
 function OnStart() {
     app.SetOrientation("Landscape");
@@ -85,16 +91,16 @@ function OnStart() {
     edtin.SetMargins(0.0, 0.5, 0, 0);
     lay.AddChild(edtin);
     edtq = app.CreateTextEdit("", 0.4, 1);
-    edtq.SetTextSize(4);
+    edtq.SetTextSize(6);
   //  edtq.SetMargins(0.0, 0.2, 0, 0);
     lay.AddChild(edtq);
-    edt = app.CreateTextEdit("", 0.3, 0.2);
+    edt = app.CreateTextEdit("", 0.3, 0.4);
     edt.SetTextSize(8);
-    edt.SetMargins(0.5, 0.5, 0, 0);
+    edt.SetMargins(0.5, 0, 0, 0);
     lay.AddChild(edt);
-    edt2 = app.CreateTextEdit("", 0.3, 0.2);
+    edt2 = app.CreateTextEdit("", 0.3, 0.4);
     edt2.SetTextSize(8);
-    edt2.SetMargins(0.5, 0.8, 0, 0);
+    edt2.SetMargins(0.5, 0.5, 0, 0);
     lay.AddChild(edt2);
     crypt = app.CreateCrypt();
     for (var a = 0; a < 100; a++) {
@@ -113,7 +119,7 @@ function StartDetection() {
     lay.AddChild(img);
     cam.MotionMosaic(30, 30, (100 - sensitivity) / 5, minPeriod, img);
     cam.SetOnMotion(OnMotion);
-    cam.StartPreview();
+  //cam.StartPreview();
 }
 var data2;
 
@@ -281,27 +287,28 @@ function OnMotion(data) //stream camera data
                     ghostprotocollast = ghostprotocol;
                     GhostIterate++;
                 }
-                if ((ghostprotocol * range) + qdata != (ghostprotocollast + range) + qdata) {
-                    ghostprotocollast = (ghostprotocol * range) + qdata;
-                    outputq += "~" + ((ghostprotocol * range)  + qdata) +  " == ~" + testchecknum + "\n";
+                if ((ghostprotocol * range)  +qdata != (ghostprotocollast + range)+qdata  ) {
+                    ghostprotocollast = (ghostprotocol * range);
+                    outputq += "~" + ((ghostprotocol * range)+qdata ) +  " == ~" + testchecknum + "\n";
                     edtq.SetText(outputq);
                     //app.ShowPopup( qdata );
                     	app.WriteFile( "/sdcard/testfileq.txt", outputq);
                     	
                 }
-                if ((ghostprotocol * range) + qdata == (ghostprotocollast + range) + qdata) {
+                if ((ghostprotocol * range) +qdata == (ghostprotocollast + range)+qdata  ) {
                     ghostprotocollast = ghostprotocol;
                     GhostIterate = 0;
                     outputq += "******\n";
+                    app.WriteFile( "/sdcard/testfileq.txt", outputq);
                     var resstring = (ghostprotocol*range).toString()
                     
-                    for (var numl = 0; numl < range.length-(ghostprotocol*range);numl++)                 
+                    for (var numl = 0; numl < range.length-1;numl++)                 
                     {
                     restring += "0";
                     }
-               //qdata += parseInt(resstring);//no way i am sorting out qdata notation fixing, because it doesn't output the correct information all the time in reliable terms,its more like a probabilistic nightmare to calculate with reducing notations and i think those possibilities interferes with the overall results, who knows.
-                 //ghostprotocol = 0; //i have it setup to detect just one segmentation, it needs to detect many.
-                     //range = (range/10);
+               qdata += parseInt(resstring);//no way i am sorting out qdata notation fixing, because it doesn't output the correct information all the time in reliable terms,its more like a probabilistic nightmare to calculate with reducing notations and i think those possibilities interferes with the overall results, who knows.
+                 ghostprotocol = 0; //i have it setup to detect just one segmentation, it needs to detect many.
+                     range = (range/10);
                     edtq.SetText(outputq);
                     
 	app.WriteFile( "/sdcard/testfileq.txt", outputq);
@@ -321,18 +328,13 @@ function OnAlarm(id) {
     //do calculation, efficiency does not matter so we can do it again and again.
 
 
-    input = "new" + ":" + nn + ":"
-    var crc = crc32(input);
-    app.ShowPopup(crc);
-    input += crc;
-app.SetClipboardText(input );
-
 
     var db2 = "";
     while (0 == 0) {
         output = "";
         var txt = app.ReadFile("/sdcard/philosophy.txt");
         sentence = txt.split(".");
+       
         var input = edtin.GetText();
         x = txt.indexOf(input);
         for (var x = 0; x < sentence.length; x++) {
@@ -567,7 +569,9 @@ app.SetClipboardText(input );
             }
             var q = 0;
             for (var y = 0; y < sentence.length; y++) {
-                y = Math.floor(Math.random() * (sentence.length)) + 0
+            
+            
+            y = Math.floor(Math.random() * (sentence.length)) + 0;
                 var sent = sentence[y];
                 var word = sent.split(" ");
                 for (var a = 0; a < word.length; a++) {
@@ -614,7 +618,7 @@ app.SetClipboardText(input );
 
     var input = outarr[outarr.length];
     
-    if (input == "new"){
+    if (input == testout){//iterate
     break;
     }
       }
@@ -625,12 +629,11 @@ app.SetClipboardText(input );
     var integer = 0; //341881320659934023674980;//18537;//same as testchecknum to test...
  
 
-    input += ":" + nn + ":"
+    input += nn;
     var crc = crc32(input);
     app.ShowPopup(crc);
-    input += crc;
+    //input += crc;
 app.SetClipboardText(input );
-
 
 
     var binaryval = "";
@@ -647,6 +650,7 @@ app.SetClipboardText(input );
     app.SetClipboardText(str);
     app.ShowPopup("Copied integer & range");
     //if decimal higher or lower send disruption
+    integer = nn;
     if (integer <= (ghostprotocol * range) + qdata) {
         for (var a = 0; a < 500; a++) {
             var b = 9;
