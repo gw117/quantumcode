@@ -208,8 +208,10 @@ cyc++;
 
 
 if (sta == 0){
+if (ite != 8){
 binary += "0";
 ite++;
+}
 if (ite == 8){
 binary += ",";
 ite = 0;
@@ -270,9 +272,10 @@ cyc++;
 
 if (sta == 0){
 //app.ShowPopup("Nominal" );
-
-binary += "0";
-ite++;
+if (ite != 8){
+//binary += "0";
+//ite++;
+}
 if (ite == 8){
 binary += ",";
 ite = 0;
@@ -315,10 +318,11 @@ code = 0;
 or = 0;
 cyc++;
 //app.ShowPopup("Nominal" );
+if (ite != 8){
+//binary += "0";
 
-binary += "0";
-
-ite++;
+//ite++;
+}
 if (ite == 8){
 binary += ",";
 ite = 0;
@@ -349,10 +353,12 @@ or = 0;
 and = 0;
 cyc++;
 app.ShowPopup("Response detected" );
+if (ite != 8){
 binary +=  "1";
 app.SetClipboardText(binary );
 
 ite++;
+}
 if (ite == 8){
 binary += ",";
 ite = 0;
@@ -371,21 +377,28 @@ binary += "@" + ite + " 1";
 ite++;
 //paradox computation
 integer = 0;
-
+/*
 for(var aa = 0;aa < 4;aa++){
 	for(var aa = 0;aa < 4;aa++){
 	for(var aaa = 0;aaa < 4;aaa++){
 	for(var aaaa = 0;aaaa < 4;aaaa++){
 	for(var aaaaa = 0;aaaaa < 4;aaaaa++){
-	if (aa*aaa*aaaa*aaaaa == Math.floor(Math.random() * (1024)) + 0){
-integer = aa*aaa*aaaa*aaaaa;
-integer = 0;
+		if (aa*aaa*aaaa*aaaaa == Math.floor(Math.random() * (1024)) + 0){
+*/
+//integer = aa*aaa*aaaa*aaaaa;
+integer = 69;//put in message as array iteration perhaps, could be channel? or quantum internet.
+message = [138,138,138,138,138,73,32,73,73,32,73,73,73,32,79,138,138,138,138,138]
+message = [138,138,138,138,138,50,48,49,49,50,48,49,57,50,48,49,49,50,48,49,57,50,48,49,49,50,48,49,57,50,48,49,49,50,48,49,57,138,138,138,138,138,]
+
+integer = message[ite];
+/*
 	}
 }
 }
 }
 }
 }
+*/
 var resultint = integer.toString(2);
 app.ShowPopup( resultint );
 //paradox computation
@@ -403,7 +416,7 @@ function sms_OnMessage( number, msg )
 if (msg.index_Of("@0") > -1){
 	if (msg.index_Of("1") > -1){
 for(var a = 0; a < 500;a++){
-var b = 9;
+var b = 1;
  numa += b + ",";
 }
 recieve += msg + ",";
@@ -413,7 +426,7 @@ recieve += msg + ",";
 if (msg.index_Of("@1") > -1){
 	if (msg.index_Of(" 1") > -1){
 for(var a = 0; a < 500;a++){
-var b = 9;
+var b = 1;
  numa += b + ",";
 }
 recieve += msg + ",";
@@ -424,7 +437,7 @@ recieve += msg + ",";
 if (msg.index_Of("@2") > -1){
 	if (msg.index_Of(" 1") > -1){
 for(var a = 0; a < 500;a++){
-var b = 9;
+var b = 1;
  numa += b + ",";
 }
 recieve += msg + ",";
@@ -436,7 +449,7 @@ recieve += msg + ",";
 if (msg.index_Of("@3") > -1){
 	if (msg.index_Of(" 1") > -1){
 for(var a = 0; a < 500;a++){
-var b = 9;
+var b = 1;
  numa += b + ",";
 }
 recieve += msg + ",";
@@ -447,7 +460,7 @@ recieve += msg + ",";
 if (msg.index_Of("@4") > -1){
 	if (msg.index_Of(" 1") > -1){
 for(var a = 0; a < 500;a++){
-var b = 9;
+var b = 1;
  numa += b + ",";
 }
 recieve += msg + ",";
@@ -458,7 +471,7 @@ recieve += msg + ",";
 if (msg.index_Of("@5") > -1){
 	if (msg.index_Of(" 1") > -1){
 for(var a = 0; a < 500;a++){
-var b = 9;
+var b = 1;
  numa += b + ",";
 }
 recieve += msg + ",";
@@ -469,7 +482,7 @@ recieve += msg + ",";
 if (msg.index_Of("@6") > -1){
 	if (msg.index_Of(" 1") > -1){
 for(var a = 0; a < 500;a++){
-var b = 9;
+var b = 1;
  numa += b + ",";
 }
 recieve += msg + ",";
@@ -480,7 +493,7 @@ recieve += msg + ",";
 if (msg.index_Of("@7") > -1){
 	if (msg.index_Of(" 1") > -1){
 for(var a = 0; a < 500;a++){
-var b = 9;
+var b = 1;
  numa += b + ",";
 }
 recieve += msg + ",";
