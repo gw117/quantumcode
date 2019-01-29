@@ -40,7 +40,7 @@ var qdata = 0;
 
 //to perform series computation to narrow approximation after each computation decrease range and add into qdata
 
-var stringrand  = "";
+var stringrand = "";
 var r = 0;
 var txt = app.ReadFile("/sdcard/philosophy.txt");
 sentence = txt.split(".");
@@ -49,8 +49,7 @@ c = Math.floor(Math.random() * (sentence.length)) + 0;
 stringrand += c + ",";
 }
 //for checking quantum results
-stringrand = "4801,2527,3452,1197,2767,1762,3306,5785,3211,1291,5235,1814,2071,5027,1063,3438,5333,395,5151,3662,865,398,1689,275,5738,4562,3483,2255,618,2605,2650,2114,3094,363,822,2444,2090,563,3788,2198,5726,248,3625,3307,1329,2315,4803,610,3274,3437,3515,4690,4999,834,5219,4423,1463,1574,419,1072,167,4695,1242,2642,122,4269,4743,635,3594,5141,1766,2347,4881,5985,3466,3068,753,254,2793,3809,3494,2347,519,5457,560,3450"
-
+//stringrand = 
 //____________________
 var txt = app.ReadFile("/sdcard/philosophy.txt");
         sentence = txt.split(".");
@@ -74,9 +73,11 @@ var pos = 0;
 var output2 = "";
 var c = 0;
 var function1 = "";
-var testout = "sophisticated";
+var testout = "faulty";
+var context = "proof";
 
 function OnStart() {
+var stringrand  = app.ReadFile("/sdcard/seed.txt");
     app.SetOrientation("Landscape");
     lay = app.CreateLayout("Linear", "horizontal,FillXY");
     lay = app.CreateLayout("Frame");
@@ -86,6 +87,21 @@ function OnStart() {
     btn.SetOnTouch(btn_OnTouch);
     btn.SetMargins(0.8, 0.02, 0, 0);
     lay.AddChild(btn);
+    
+    btns = app.CreateButton("Start", 0.2, 0.1);
+    btns.SetOnTouch(btns_OnTouch);
+    btns.SetMargins(0.6, 0.02, 0, 0);
+    lay.AddChild(btns);
+    var functionstring  = app.ReadFile("/sdcard/adj.txt");
+    functionarr = functionstring.split("\n");
+    functionstring ="";
+    for(var fun = 0; fun < functionarr.length;fun++){
+    functionstring += functionarr[fun] + ",";
+    }
+    spin = app.CreateSpinner( functionstring, 0.3 );
+    spin.SetOnTouch( spin_OnChange );
+    spin.SetMargins(0.3, 0, 0, 0);
+    lay.AddChild( spin );
     edtin = app.CreateTextEdit("", 0.0, 0.0);
     edtin.SetTextSize(8);
     edtin.SetMargins(0.0, 0.5, 0, 0);
@@ -96,7 +112,7 @@ function OnStart() {
     lay.AddChild(edtq);
     edt = app.CreateTextEdit("", 0.3, 0.4);
     edt.SetTextSize(8);
-    edt.SetMargins(0.5, 0, 0, 0);
+    edt.SetMargins(0.5, 0.2, 0, 0);
     lay.AddChild(edt);
     edt2 = app.CreateTextEdit("", 0.3, 0.4);
     edt2.SetTextSize(8);
@@ -108,7 +124,6 @@ function OnStart() {
         numa += b + ","; //initialise test variable set
     }
     app.AddLayout(lay);
-    setTimeout("StartDetection()", 1000); //initiate camera stream function
 }
 
 function StartDetection() {
@@ -119,10 +134,25 @@ function StartDetection() {
     lay.AddChild(img);
     cam.MotionMosaic(30, 30, (100 - sensitivity) / 5, minPeriod, img);
     cam.SetOnMotion(OnMotion);
-  //cam.StartPreview();
+  cam.StartPreview();
 }
-var data2;
 
+
+function spin_OnChange( item )
+{
+testout = item;
+}
+
+
+
+function btns_OnTouch() {
+    setTimeout("StartDetection()", 1000); //initiate camera stream function
+}
+
+
+
+
+var data2;
 function OnMotion(data) //stream camera data
 {
     //various switching
@@ -299,6 +329,22 @@ function OnMotion(data) //stream camera data
                     ghostprotocollast = ghostprotocol;
                     GhostIterate = 0;
                     outputq += "******\n";
+                    
+         var checkstring = "";           
+var check = stringrand.split(",");
+for(var n = 0;n<check.length;n++){
+if (n == (ghostprotocol*range)+qdata){
+
+checkstring += check[n-8] + ",";
+if (n == (ghostprotocol*range)+qdata+32){//currently testing automatic connectivity between the quantum algorithm hyperdeteministic search and loading seed/nonce results to load appropriate AI responses
+stringrand = checkstring;
+app.WriteFile( "/sdcard/seed.txt", checkstring);
+break;
+}
+
+}
+}
+                    
                     app.WriteFile( "/sdcard/testfileq.txt", outputq);
                     var resstring = (ghostprotocol*range).toString()
                     
@@ -618,7 +664,7 @@ function OnAlarm(id) {
 
     var input = outarr[outarr.length];
     
-    if (input == testout){//iterate
+    if (input == testout && output.indexOf(context) > -1){//iterate
     break;
     }
       }
