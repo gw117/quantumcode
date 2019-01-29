@@ -333,6 +333,10 @@ function OnAlarm(id) {
 
 //do algorithm
 
+
+
+
+
 //return data and crc perhaps
 
 
