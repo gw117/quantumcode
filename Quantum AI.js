@@ -37,6 +37,7 @@ var ghostprotocollast = 0;
 var GhostIterate = 0;
 var testchecknum = 0//573210623968572906089346317034273080; //341881320659934023674980; //18537;
 var qdata = 0;
+var adone = 0;
 
 //to perform series computation to narrow approximation after each computation decrease range and add into qdata
 
@@ -92,6 +93,11 @@ var stringrand  = app.ReadFile("/sdcard/seed.txt");
     btns.SetOnTouch(btns_OnTouch);
     btns.SetMargins(0.6, 0.02, 0, 0);
     lay.AddChild(btns);
+    
+    btnl = app.CreateButton("load", 0.2, 0.1);
+    btnl.SetOnTouch(btnl_OnTouch);
+    btnl.SetMargins(0.8, 0.2, 0, 0);
+    lay.AddChild(btnl);
     var functionstring  = app.ReadFile("/sdcard/adj.txt");
     functionarr = functionstring.split("\n");
     functionstring ="";
@@ -106,17 +112,26 @@ var stringrand  = app.ReadFile("/sdcard/seed.txt");
     edtin.SetTextSize(8);
     edtin.SetMargins(0.0, 0.5, 0, 0);
     lay.AddChild(edtin);
-    edtq = app.CreateTextEdit("", 0.4, 1);
+      edtcontext = app.CreateTextEdit("context", 0.2, 0.1);
+    edtcontext.SetTextSize(8);
+    edtcontext.SetMargins(0.5, 0.15, 0, 0);
+    lay.AddChild(edtcontext);
+    
+      edtcausation = app.CreateTextEdit("causation", 0.2, 0.1);
+    edtcausation.SetTextSize(8);
+    edtcausation.SetMargins(0.5, 0.25, 0, 0);
+    lay.AddChild(edtcausation);
+    edtq = app.CreateTextEdit("", 0.2, 1);
     edtq.SetTextSize(6);
   //  edtq.SetMargins(0.0, 0.2, 0, 0);
     lay.AddChild(edtq);
-    edt = app.CreateTextEdit("", 0.3, 0.4);
+    edt = app.CreateTextEdit("", 0.3, 0.2);
     edt.SetTextSize(8);
-    edt.SetMargins(0.5, 0.2, 0, 0);
+    edt.SetMargins(0.5, 0.4, 0, 0);
     lay.AddChild(edt);
     edt2 = app.CreateTextEdit("", 0.3, 0.4);
     edt2.SetTextSize(8);
-    edt2.SetMargins(0.5, 0.5, 0, 0);
+    edt2.SetMargins(0.5, 0.6, 0, 0);
     lay.AddChild(edt2);
     crypt = app.CreateCrypt();
     for (var a = 0; a < 100; a++) {
@@ -127,6 +142,7 @@ var stringrand  = app.ReadFile("/sdcard/seed.txt");
 }
 
 function StartDetection() {
+context = edtcontext.GetText();
     var w = cam.GetImageWidth();
     var h = cam.GetImageHeight();
     img = app.CreateImage(null, x, y, "Fix", w, h);
@@ -147,6 +163,11 @@ testout = item;
 
 function btns_OnTouch() {
     setTimeout("StartDetection()", 1000); //initiate camera stream function
+}
+
+
+function btnl_OnTouch() {
+stringrand = app.ReadFile("/sdcard/seed.txt");
 }
 
 
@@ -312,6 +333,7 @@ function OnMotion(data) //stream camera data
             cyc++;
             app.ShowPopup("Ghost protocol++ ->" + ghostprotocol);
             prime++;
+            if (adone==0){
             if (prime > 1 && ghostprotocol > 3) {
                 if (GhostIterate == 0) {
                     ghostprotocollast = ghostprotocol;
@@ -328,17 +350,19 @@ function OnMotion(data) //stream camera data
                 if ((ghostprotocol * range) +qdata == (ghostprotocollast + range)+qdata  ) {
                     ghostprotocollast = ghostprotocol;
                     GhostIterate = 0;
+                    adone = 1;
                     outputq += "******\n";
                     
          var checkstring = "";           
 var check = stringrand.split(",");
 for(var n = 0;n<check.length;n++){
-if (n == (ghostprotocol*range)+qdata){
+if (n >= (ghostprotocol*range)+qdata){
 
 checkstring += check[n-8] + ",";
 if (n == (ghostprotocol*range)+qdata+32){//currently testing automatic connectivity between the quantum algorithm hyperdeteministic search and loading seed/nonce results to load appropriate AI responses
 stringrand = checkstring;
 app.WriteFile( "/sdcard/seed.txt", checkstring);
+app.SetClipboardText(checkstring );
 break;
 }
 
@@ -361,6 +385,7 @@ break;
                 }
             }
             ghostprotocol++; //This iterates multiverses supposedly...
+            }
         }
     }
 }
@@ -373,11 +398,15 @@ function btn_OnTouch() {
 function OnAlarm(id) {
     //do calculation, efficiency does not matter so we can do it again and again.
 
-
+context  = edtcontext.GetText();
+causation = edtcausation.GetText();
 
     var db2 = "";
     while (0 == 0) {
         output = "";
+        
+	var pitch = 1.0, speed = 1.0;
+
         var txt = app.ReadFile("/sdcard/philosophy.txt");
         sentence = txt.split(".");
        
@@ -385,8 +414,9 @@ function OnAlarm(id) {
         x = txt.indexOf(input);
         for (var x = 0; x < sentence.length; x++) {
             terminator = output.split(" ");
-            if (terminator.length > 8) {
+            if (terminator.length > 7) {
                 filesave += output + "\n";
+                
                 if (stage == depth) {
                     x = pos - pos / 5;
                     stage = 0;
@@ -415,8 +445,11 @@ function OnAlarm(id) {
 
                             if (output.indexOf(wordstr) == -1) {
                                 if (wordstr.indexOf(sent) == -1) {
+                                   if (wordstr != "6") {
                                     output += wordstr + " ";
+          
                                     function1 = wordstr;
+                                }
                                 }
                                 edt.SetText(output);
 
@@ -437,6 +470,31 @@ function OnAlarm(id) {
                     break
                 }
             }
+            var q = 0;
+            var sent = sentence[x];
+            var word = sent.split(" ");
+            for (var a = 0; a < word.length; a++) {
+                var txt2 = app.ReadFile("/sdcard/av.txt");
+                var wordstr = word[a];
+                var vocab = txt2.split("\n");
+                for (var b = 0; b < vocab.length; b++) {
+                    if (wordstr == vocab[b]) {
+                        if (output.indexOf(wordstr) == -1) {
+                            if (wordstr.indexOf(sent) == -1) {
+                                if (wordstr != "6") {
+                                output += wordstr + " ";
+                             
+                                }
+                            }
+                            edt.SetText(output);
+
+                        }
+                    }
+                }
+            }
+            
+            
+            
             var txt = app.ReadFile("/sdcard/philosophy.txt");
             var q = 0
             var sent = sentence[x];
@@ -449,7 +507,10 @@ function OnAlarm(id) {
                     if (wordstr == vocab[b]) {
                         if (output.indexOf(wordstr) == -1) {
                             if (wordstr.indexOf(sent) == -1) {
+                                if (wordstr != "6") {
                                 output += wordstr + " ";
+                            
+                                }
                             }
                             edt.SetText(output);
 
@@ -467,61 +528,6 @@ function OnAlarm(id) {
 
 
 
-            var q = 0;
-            var func = app.ReadFile("/sdcard/noun.txt");
-            var functionorder = func.split("\n");
-            for (var c = x; c < sentence.length; c++) {
-                //c =  Math.floor(Math.random() * (sentence.length)) + 0;
-                var sent = sentence[c];
-                var word = sent.split(" ");
-                for (var a = 0; a < word.length; a++) {
-                    for (var b = 0; b < functionorder.length; b++) {
-                        //b =  Math.floor(Math.random() * (func.length)) + 0;
-                        if (sent.indexOf(functionorder[b]) > -1) {
-                            var sent = sentence[c];
-                            var word = sent.split(" ");
-                            x = c / 5;
-                            c = pos;
-                            x = Math.round(x);
-                            if (q == 0) {
-                                output += "";
-                                if (update.length > 1) {
-                                    var updater = app.ReadFile("/sdcard/parameters.txt");
-                                    updater += "\n" + update;
-                                    app.WriteFile("/sdcard/parameters.txt", updater);
-                                }
-                            }
-                            q = 1;
-                            break;
-                        }
-                    }
-                    if (q == 1) {
-                        break
-                    }
-                }
-                if (q == 1) {
-                    break
-                }
-            }
-            var q = 0;
-            var sent = sentence[x];
-            var word = sent.split(" ");
-            for (var a = 0; a < word.length; a++) {
-                var txt2 = app.ReadFile("/sdcard/av.txt");
-                var wordstr = word[a];
-                var vocab = txt2.split("\n");
-                for (var b = 0; b < vocab.length; b++) {
-                    if (wordstr == vocab[b]) {
-                        if (output.indexOf(wordstr) == -1) {
-                            if (wordstr.indexOf(sent) == -1) {
-                                output += wordstr + " ";
-                            }
-                            edt.SetText(output);
-
-                        }
-                    }
-                }
-            }
             var q = 0;
             var func = app.ReadFile("/sdcard/parameters.txt");
             var functionorder = func.split("\n");
@@ -628,7 +634,10 @@ function OnAlarm(id) {
                         if (wordstr == vocab[b]) {
                             if (output.indexOf(wordstr) == -1) {
                                 if (wordstr.indexOf(sent) == -1) {
+                                    if (wordstr != "6") {
                                     output += wordstr + " ";
+                              
+                                    }
                                 }
                                 update = wordstr;
                                 edt.SetText(output);
@@ -664,8 +673,15 @@ function OnAlarm(id) {
 
     var input = outarr[outarr.length];
     
-    if (input == testout && output.indexOf(context) > -1){//iterate
-    break;
+    if (input == testout && output.indexOf(context) > -1 &&  output.indexOf(context) > output.indexOf(causation)){//iterate
+  
+   if (output.indexOf("cognition") < output.indexOf(context) && output.indexOf(context) < output.indexOf("thought") &&  output.indexOf("thought") < output.indexOf("use") && output.indexOf("use") < output.indexOf("function") && output.indexOf("function") < output.indexOf("object")){
+    
+      break;
+    }
+    
+    
+    
     }
       }
 
@@ -702,6 +718,8 @@ app.SetClipboardText(input );
             var b = 9;
             numa += b + ","; //quantum disruption
         }
+        
+check = numa.split(",");
     }
 }
 //convert ascii data into decimal then use the ghost protocol to check the number, then convert back to ascii.
